@@ -1,0 +1,45 @@
+---
+import Layout from '@/layouts/App.astro';
+import App from '@app/App.tsx';
+
+const components = import.meta.glob('@app/content/*-*.tsx', { as: 'raw', eager: true });
+const files = Object.keys(components).map((path) => (path.split('/').pop() || ''));
+
+Object.keys(components).forEach((path) => {
+	const fileName = path.split('/').pop();
+	if (fileName) {
+		components[fileName] = components[path];
+		delete components[path];
+	}
+});
+
+const data = { files, components };
+---
+<Layout title="Stepan Ogorodnikov - Profile">
+	<App
+		client:only
+		slot="app"
+		data={data}
+	/>
+</Layout>
+
+<script is:inline>
+	const getThemePreference = () => {
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			return localStorage.getItem('theme');
+		}
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	};
+
+	const isDark = getThemePreference() === 'dark';
+	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+	document.documentElement.setAttribute('data-color-scheme', isDark  ? 'dark' : 'light');
+
+	if (typeof localStorage !== 'undefined') {
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains('dark');
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	}
+</script>

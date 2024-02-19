@@ -1,0 +1,20 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/source-code-pro';
+import '@styles/globals.css';
+
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="h-dvh w-dvw bg-background text-foreground">
+		<slot name="app" />
+	</body >
+</html>
