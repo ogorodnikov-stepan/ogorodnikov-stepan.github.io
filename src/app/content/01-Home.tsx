@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import { Card } from '@/components/ui/card.tsx';

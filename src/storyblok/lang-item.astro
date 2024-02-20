@@ -1,0 +1,31 @@
+---
+import { storyblokEditable } from '@storyblok/astro';
+import { Star, StarHalf } from 'lucide-react';
+
+const { blok } = Astro.props;
+---
+<li
+  class="flex flex-col gap-[0.25rem]"
+  {...storyblokEditable(blok)}
+>
+  <div class="flex flex-row items-center gap-[0.5rem]">
+    <img
+      class="size-[1.5rem]"
+      alt={blok.code}
+      src={`/images/languages/${blok.code}.svg`}
+    />
+    <span class="font-semibold">
+      {blok.title}
+    </span>
+  </div>
+  <div class="flex flex-row items-center gap-[0.5rem] text-alternative-foreground">
+    { blok.isAdvanced ? (
+      <Star size={20} strokeWidth={1.25} />
+    ) : (
+      <StarHalf size={20} strokeWidth={1.25} />
+    )}
+    <span class="">
+      {blok.content}
+    </span>
+  </div>
+</li>

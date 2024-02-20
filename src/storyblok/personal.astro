@@ -1,0 +1,28 @@
+---
+import { type SbBlokData, storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+const { blok } = Astro.props;
+---
+<div class="flex flex-row items-center gap-[1rem] sm:gap-[2.5rem]">
+  <div class="sm:w-[13rem]">
+    <img
+      class="size-[6rem] sm:size-[12rem] rounded-full shadow-md"
+      src={`${blok.picture.filename}/m/384x0`}
+    />
+  </div>
+  <div class="flex flex-col sm:py-[2rem] gap-[0.25rem] sm:gap-[0.5rem]">
+    <span class="tracking-wide leading-none font-extrabold text-xl sm:text-3xl text-alternative-foreground">
+      {blok.name}
+    </span>
+    <span class="font-medium text:lg sm:text-xl text-alternative-foreground">
+      {blok.age}
+    </span>
+    <span class="text:lg sm:text-xl text-alternative-foreground">
+      {blok.position}
+    </span>
+    {blok.content?.map((blok: SbBlokData) => (
+      <StoryblokComponent blok={blok} />
+    ))}
+  </div>
+</div>

@@ -1,0 +1,21 @@
+---
+import { type SbBlokData, storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+const { blok } = Astro.props;
+---
+<nav
+  class="flex flex-row justify-center"
+  {...storyblokEditable(blok)}
+>
+  <ul class="
+    flex flex-row gap-[1rem]
+    tracking-wide text-md font-medium
+  ">
+    {blok.items?.map((blok: SbBlokData) => (
+      <li>
+        <StoryblokComponent blok={blok} />
+      </li>
+    ))}
+  </ul>
+</nav>

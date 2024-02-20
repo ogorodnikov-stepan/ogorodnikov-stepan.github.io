@@ -1,0 +1,31 @@
+---
+import { storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props;
+---
+{ blok.isActive ? (
+  <a
+    class="
+      inline-block p-[0.75rem]
+      border-b-2 border-link
+      text-link active
+    "
+    id={blok.id}
+    aria-current="page"
+  >
+    {blok.text}
+  </a>
+) : (
+  <a
+    class="
+      inline-block p-[0.75rem]
+      text-alternative-foreground
+      hover:border-b-2 hover:border-primary hover:text-primary
+    "
+    id={blok.id}
+    href={blok.href}
+    {...storyblokEditable(blok)}
+  >
+    {blok.text}
+  </a>
+)}

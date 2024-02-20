@@ -1,0 +1,25 @@
+---
+import { storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props;
+---
+<li
+  class="flex flex-row gap-[0.25rem]"
+  {...storyblokEditable(blok)}
+>
+  <a
+    class="
+      flex flex-row items-center gap-[0.5rem]
+      p-[0.5rem] rounded-lg
+      font-medium text-md sm:text-lg text-alternative-foreground
+      hover:bg-muted
+    "
+    href={blok.href}
+  >
+    <img
+      class="size-[1.5rem]"
+      src={blok.icon.filename}
+    />
+    {blok.text}
+  </a>
+</li>

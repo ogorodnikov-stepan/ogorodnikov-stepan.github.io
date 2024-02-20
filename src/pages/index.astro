@@ -2,7 +2,10 @@
 import Layout from '@/layouts/App.astro';
 import App from '@app/App.tsx';
 
-const components = import.meta.glob('@app/content/*-*.tsx', { as: 'raw', eager: true });
+const components: Record<string, string> = import.meta.glob(
+	'@app/content/*-*.tsx',
+	{ query: '?raw', import: 'default', eager: true },
+);
 const files = Object.keys(components).map((path) => (path.split('/').pop() || ''));
 
 Object.keys(components).forEach((path) => {

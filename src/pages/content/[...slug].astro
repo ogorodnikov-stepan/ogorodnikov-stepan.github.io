@@ -1,19 +1,44 @@
 ---
-import { getCollection } from 'astro:content';
+import { useStoryblokApi } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 import Layout from '@/layouts/Content.astro';
 
 export async function getStaticPaths() {
-  const contentEntries = await getCollection('content');
-  return contentEntries.map(entry => ({
-    params: { slug: entry.slug }, props: { entry },
-  }));
-}
+  const storyblokApi = useStoryblokApi();
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+  const { data } = await storyblokApi.get('cdn/links', {
+    version: 'draft',
+  });
+  let links = data.links;
+  links = Object.values(links);
+
+  return links.map(({ slug }) => {
+    return {
+      params: {
+        slug: slug === 'home' ? undefined : slug,
+      },
+    }
+  })
+};
+
+const { slug } = Astro.params;
+
+const storyblokApi = useStoryblokApi();
+
+const { data } = await storyblokApi.get(
+  `cdn/stories/${slug === undefined ? 'home' : slug}`,
+  {
+    version: 'draft',
+  }
+);
+
+const story = data.story;
 ---
-<Layout data={entry.data}>
-	<div class="flex flex-col sm:items-center w-full p-[1rem]">
-		<Content />
+<Layout data={story.content}>
+	<div class="
+    flex flex-col sm:items-center grow
+    w-full p-[0.5rem] sm:p-[1rem]
+">
+		<StoryblokComponent blok={story.content} />
 	</div>
 </Layout>

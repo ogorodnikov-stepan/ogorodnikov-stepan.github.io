@@ -6,16 +6,20 @@ import '@styles/globals.css';
 const { data } = Astro.props;
 ---
 <!doctype html>
-<html lang={data.lang}>
+<html data-content-type={data.content_type}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{data.title}</title>
+		<title>{data.head_title}</title>
 	</head>
-	<body class="flex flex-col items-center h-dvh w-dvw bg-background dark:bg-dot-white/[0.1] bg-dot-black/[0.1] text-foreground">
+	<body class="
+		flex flex-col items-center grow
+		h-dvh w-dvw
+		bg-background dark:bg-dot-white/[0.1] bg-dot-black/[0.1]
+		text-foreground
+	">
 		<slot />
 	</body >
 </html>
@@ -38,5 +42,37 @@ const { data } = Astro.props;
 			localStorage.setItem('theme', isDark ? 'dark' : 'light');
 		});
 		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	}
+</script>
+
+<script is:inline>
+	const type = document.documentElement.getAttribute('data-content-type');
+	const url = new URL(document.location);
+	const params = url.searchParams;
+
+	// if (['cv', 'cl'].includes(type)) {
+	// 	const params = new URL(document.location).searchParams;
+	// 	const value = params.get(type);
+	// 	if (value) {
+	// 		const id = type === 'cl' ? 'cv' : 'cl'
+	// 		const element = document.getElementById(`tabs-${id}-link`);
+	// 		const href = type === 'cl' ? 'cv' : `cl/${cl}`;
+	// 		element.setAttribute('href', `/content/${href}`);
+	// 	}
+	// }
+
+	if (type === 'cv') {
+		const cl = params.get('cl');
+		if (cl) {
+			const element = document.getElementById('tabs-cl-link');
+			element.setAttribute('href', `/content/cl/${cl}`);
+		}
+	}
+
+	if (type === 'cl') {
+		const element = document.getElementById('tabs-cv-link');
+		const segments = url.pathname.split('/');
+		const cl = segments[segments.length - 1];
+		if (cl) element.setAttribute('href', `/content/cv?cl=${cl}`);
 	}
 </script>

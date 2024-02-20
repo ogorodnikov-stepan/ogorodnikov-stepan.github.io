@@ -25,7 +25,6 @@ pnpm-debug.log*
 
 # content collections
 src/content
-src/components/content
 
 # static
 public/

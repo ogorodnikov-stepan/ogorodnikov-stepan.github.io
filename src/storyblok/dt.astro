@@ -1,0 +1,16 @@
+---
+import { type SbBlokData, storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props;
+---
+<dt
+  class="flex flex-row gap-[0.75rem] text-lg font-semibold text-primary"
+  {...storyblokEditable(blok)}
+>
+  <div class="relative flex justify-center items-center z-10 size-[1.75rem]">
+    <div class="size-[0.5rem] rounded-full bg-gray-400 dark:bg-gray-600" />
+  </div>
+  <span>
+    {blok.content}
+  </span>
+</dt>
