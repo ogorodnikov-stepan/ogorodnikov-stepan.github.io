@@ -2,12 +2,13 @@
 import { useStoryblokApi } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 import Layout from '@/layouts/Content.astro';
+import isProduction from '@/lib/utils';
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
 
   const { data } = await storyblokApi.get('cdn/links', {
-    version: 'draft',
+    version: isProduction() ? 'published' : 'draft',
   });
   let links = data.links;
   links = Object.values(links);
