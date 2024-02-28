@@ -50,22 +50,11 @@ const { data } = Astro.props;
 	const url = new URL(document.location);
 	const params = url.searchParams;
 
-	// if (['cv', 'cl'].includes(type)) {
-	// 	const params = new URL(document.location).searchParams;
-	// 	const value = params.get(type);
-	// 	if (value) {
-	// 		const id = type === 'cl' ? 'cv' : 'cl'
-	// 		const element = document.getElementById(`tabs-${id}-link`);
-	// 		const href = type === 'cl' ? 'cv' : `cl/${cl}`;
-	// 		element.setAttribute('href', `/content/${href}`);
-	// 	}
-	// }
-
 	if (type === 'cv') {
 		const cl = params.get('cl');
 		if (cl) {
 			const element = document.getElementById('tabs-cl-link');
-			element.setAttribute('href', `/content/cl/${cl}`);
+			element.setAttribute('href', `/content/${cl}`);
 		}
 	}
 
