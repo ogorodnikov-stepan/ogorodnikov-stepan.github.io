@@ -10,5 +10,5 @@ export function getFileSlug(fileName: string) {
 }
 
 export default function isProduction() {
-  return import.meta.env.STORYBLOK_IS_PRODUCTION === 'true';
+  return import.meta.env.PROD;
 }
