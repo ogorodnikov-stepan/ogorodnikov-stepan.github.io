@@ -7,11 +7,16 @@ import isProduction from '@/lib/utils';
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
 
-  const { data } = await storyblokApi.get('cdn/links', {
-    version: isProduction() ? 'published' : 'draft',
-  });
+  console.log(`isProduction: ${isProduction()}`);
+
+  const { data } = await storyblokApi.get(
+    'cdn/links',
+    { version: isProduction() ? 'published' : 'draft' }
+  );
   let links = data.links;
   links = Object.values(links);
+
+  console.log(links);
 
   return links.map(({ slug }: { slug: string }) => {
     return {
@@ -24,13 +29,13 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
+console.log(slug);
+
 const storyblokApi = useStoryblokApi();
 
 const { data } = await storyblokApi.get(
   `cdn/stories/${slug === undefined ? 'home' : slug}`,
-  {
-    version: isProduction() ? 'published' : 'draft',
-  }
+  { version: isProduction() ? 'published' : 'draft' }
 );
 
 const story = data.story;
@@ -39,7 +44,7 @@ const story = data.story;
 	<div class="
     flex flex-col sm:items-center grow
     w-full p-[0.5rem] sm:p-[1rem]
-">
+  ">
 		<StoryblokComponent blok={story.content} />
 	</div>
 </Layout>
