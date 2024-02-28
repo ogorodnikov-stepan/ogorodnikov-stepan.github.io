@@ -1,0 +1,40 @@
+{
+  "app": {
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "home": {
+    "firstName": "Stepan",
+    "lastName": "Ogorodnikov",
+    "position": "Web developer",
+    "github": "GitHub Profile"
+  },
+  "skills": {
+    "title": "Quick summary of my skills",
+    "fundamentals": "Fundametals",
+    "current": "Current stack",
+    "legacy": "Used in the past"
+  },
+  "react": {
+    "title": "React ecosystem experience",
+    "bundlers": "Bundling with",
+    "testing": "Unit testing with",
+    "state": "Managing global state with",
+    "i18n": "Translation with"
+  },
+  "css": {
+    "title": "CSS skills and experience",
+    "responsive": "Responsive design with",
+    "layout": "layouts",
+    "preprocessors": "preprocessor",
+    "isolation": "Scoping styles with",
+    "custom": "Building UI from scratch over",
+    "libraries": "as well as with libraries:"
+  },
+  "builtWith": {
+    "title": "This website is built with"
+  }
+}
