@@ -29,7 +29,7 @@ const storyblokApi = useStoryblokApi();
 const { data } = await storyblokApi.get(
   `cdn/stories/${slug === undefined ? 'home' : slug}`,
   {
-    version: 'draft',
+    version: isProduction() ? 'published' : 'draft',
   }
 );
 
